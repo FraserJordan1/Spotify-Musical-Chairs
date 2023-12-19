@@ -1,0 +1,152 @@
+\doxysection{free-\/rtos-\/spotify-\/player/free-\/rtos-\/spotify-\/player.ino File Reference}
+\hypertarget{free-rtos-spotify-player_8ino}{}\label{free-rtos-spotify-player_8ino}\index{free-\/rtos-\/spotify-\/player/free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player/free-\/rtos-\/spotify-\/player.ino}}
+
+
+ECE Lab 4 Assignment, Part C @detail University of Washington ECE 474 Acknowledgments\+: LCD was inspired by\+: \href{https://www.instructables.com/Arduino-Interfacing-With-LCD-Without-Potentiometer/}{\texttt{ https\+://www.\+instructables.\+com/\+Arduino-\/\+Interfacing-\/\+With-\/\+LCD-\/\+Without-\/\+Potentiometer/}} RFID was inspired by\+: \href{https://www.instructables.com/Interfacing-RFID-RC522-With-Arduino-MEGA-a-Simple-/}{\texttt{ https\+://www.\+instructables.\+com/\+Interfacing-\/\+RFID-\/\+RC522-\/\+With-\/\+Arduino-\/\+MEGA-\/a-\/\+Simple-\//}}.  
+
+
+{\ttfamily \#include $<$Arduino\+\_\+\+Free\+RTOS.\+h$>$}\newline
+{\ttfamily \#include $<$Liquid\+Crystal.\+h$>$}\newline
+{\ttfamily \#include $<$queue.\+h$>$}\newline
+{\ttfamily \#include $<$SPI.\+h$>$}\newline
+{\ttfamily \#include $<$RFID.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_abec4b997fa457d005014c13a03d1765a}\label{free-rtos-spotify-player_8ino_abec4b997fa457d005014c13a03d1765a} 
+\#define {\bfseries SDA\+\_\+\+DIO}~9
+\begin{DoxyCompactList}\small\item\em constant for the pin number of the SDA (SS) \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_afe687a88bcf72d12a49982e285729dc1}\label{free-rtos-spotify-player_8ino_afe687a88bcf72d12a49982e285729dc1} 
+\#define {\bfseries RESET\+\_\+\+DIO}~8
+\begin{DoxyCompactList}\small\item\em constant for the pin number of the RST (reset) \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_af5b5fa19c2e690e24904d81c5692a30d}\label{free-rtos-spotify-player_8ino_af5b5fa19c2e690e24904d81c5692a30d} 
+\#define {\bfseries NUM\+\_\+\+CARDS}~3
+\begin{DoxyCompactList}\small\item\em constant for the maximum number of cards to read from \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_ae994d17d63dc3fbb2f52e106ac76ce63}\label{free-rtos-spotify-player_8ino_ae994d17d63dc3fbb2f52e106ac76ce63} 
+\#define {\bfseries LED\+\_\+\+PIN\+\_\+1}~47
+\begin{DoxyCompactList}\small\item\em constant for the pin number of the external LED \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_af97afdf00af0e116e9b5957f6a470fc2}\label{free-rtos-spotify-player_8ino_af97afdf00af0e116e9b5957f6a470fc2} 
+Liquid\+Crystal {\bfseries lcd} (12, 11, 5, 4, 3, 2)
+\begin{DoxyCompactList}\small\item\em Instance of the Liquid\+Crystal library. \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_a047e24badb0298f0d767717e0cbfffe0}\label{free-rtos-spotify-player_8ino_a047e24badb0298f0d767717e0cbfffe0} 
+RFID {\bfseries RC522} (\mbox{\hyperlink{free-rtos-spotify-player_8ino_abec4b997fa457d005014c13a03d1765a}{SDA\+\_\+\+DIO}}, \mbox{\hyperlink{free-rtos-spotify-player_8ino_afe687a88bcf72d12a49982e285729dc1}{RESET\+\_\+\+DIO}})
+\begin{DoxyCompactList}\small\item\em Instance of the RFID library. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{free-rtos-spotify-player_8ino_a90528caab2c5dc2c32f19333b016ae00}{setup\+LCD}} ()
+\begin{DoxyCompactList}\small\item\em Setup the LCD screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{free-rtos-spotify-player_8ino_a59284ce8f9a9bf013dbfed2be0a06b63}{setup\+RFID}} ()
+\begin{DoxyCompactList}\small\item\em Setup the RFID scanner. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{free-rtos-spotify-player_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em Setup the Serial Communication, External LED, Tasks, LCD, and RFID scanner. \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_afe461d27b9c48d5921c00d521181f12f}\label{free-rtos-spotify-player_8ino_afe461d27b9c48d5921c00d521181f12f} 
+void {\bfseries loop} ()
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_a369fd7d18d43a0b252b8a31bbde962c8}\label{free-rtos-spotify-player_8ino_a369fd7d18d43a0b252b8a31bbde962c8} 
+void {\bfseries v\+Task\+Blink1} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_ae2494bc16d90a95094bf6b03aa6a472b}\label{free-rtos-spotify-player_8ino_ae2494bc16d90a95094bf6b03aa6a472b} 
+void {\bfseries scroll\+LCDText} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_afc51f7aed111f9c5d8e24e2b1061ec4f}\label{free-rtos-spotify-player_8ino_afc51f7aed111f9c5d8e24e2b1061ec4f} 
+void {\bfseries update\+Text} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\item 
+void \mbox{\hyperlink{free-rtos-spotify-player_8ino_a7e93a8dd0eec6e398842100fff731a1d}{detect\+Card}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Waits for the RFID scanner to scan a card. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{free-rtos-spotify-player_8ino_a01693f0c3e887678dd7c6f8b7a1f08d0}\label{free-rtos-spotify-player_8ino_a01693f0c3e887678dd7c6f8b7a1f08d0} 
+const String {\bfseries CARD\+\_\+\+VALS} \mbox{[}$\,$\mbox{]} = \{\"{}14724720929168\"{}, \"{}35346183176\"{}, \"{}911343659194\"{}\}
+\begin{DoxyCompactList}\small\item\em constant holding the RFID card values \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_abfcb1857682b4c36d097891664e3b340}\label{free-rtos-spotify-player_8ino_abfcb1857682b4c36d097891664e3b340} 
+const char {\bfseries FEARLESS} \mbox{[}$\,$\mbox{]} = \"{}spotify\+:album\+:4h\+Dok0\+OAJd57\+SGIT8xu\+WJH\"{}
+\begin{DoxyCompactList}\small\item\em constant holding the \"{}\+Fearless\"{} Spotify code \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_a1a189b0a5ea737b4d45785c635b015b6}\label{free-rtos-spotify-player_8ino_a1a189b0a5ea737b4d45785c635b015b6} 
+const char {\bfseries FOLKLORE} \mbox{[}$\,$\mbox{]} = \"{}spotify\+:album\+:2fen\+SS68\+JI1h4\+Fo296\+Jf\+Gr\"{}
+\begin{DoxyCompactList}\small\item\em constant holding the \"{}\+Folklore\"{} Spotify code \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_aaf6237320b68fdc41bc0e6a7cad72afa}\label{free-rtos-spotify-player_8ino_aaf6237320b68fdc41bc0e6a7cad72afa} 
+const char {\bfseries VAMPIRE} \mbox{[}$\,$\mbox{]} = \"{}spotify\+:track\+:3k79j\+B4a\+Gm\+MDUQz\+Ewa46\+Rz\"{}
+\begin{DoxyCompactList}\small\item\em constant holding the \"{}\+Vampire\"{} Spotify code \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_a851130c905b0847f92242a59490c961c}\label{free-rtos-spotify-player_8ino_a851130c905b0847f92242a59490c961c} 
+const String {\bfseries SPOTIFY\+\_\+\+ARTIST\+\_\+\+VAL} \mbox{[}$\,$\mbox{]} = \{\mbox{\hyperlink{free-rtos-spotify-player_8ino_a1a189b0a5ea737b4d45785c635b015b6}{FOLKLORE}}, \mbox{\hyperlink{free-rtos-spotify-player_8ino_aaf6237320b68fdc41bc0e6a7cad72afa}{VAMPIRE}}, \mbox{\hyperlink{free-rtos-spotify-player_8ino_abfcb1857682b4c36d097891664e3b340}{FEARLESS}}\}
+\begin{DoxyCompactList}\small\item\em constant holding the Spotify codes with the associated index of the CARD\+\_\+\+VALS \end{DoxyCompactList}\item 
+\Hypertarget{free-rtos-spotify-player_8ino_abcd0f558db464b6bed6245fc349787ad}\label{free-rtos-spotify-player_8ino_abcd0f558db464b6bed6245fc349787ad} 
+Queue\+Handle\+\_\+t {\bfseries display\+Queue}
+\begin{DoxyCompactList}\small\item\em Queue with the maximum length of the 2 strings on the LCD screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ECE Lab 4 Assignment, Part C @detail University of Washington ECE 474 Acknowledgments\+: LCD was inspired by\+: \href{https://www.instructables.com/Arduino-Interfacing-With-LCD-Without-Potentiometer/}{\texttt{ https\+://www.\+instructables.\+com/\+Arduino-\/\+Interfacing-\/\+With-\/\+LCD-\/\+Without-\/\+Potentiometer/}} RFID was inspired by\+: \href{https://www.instructables.com/Interfacing-RFID-RC522-With-Arduino-MEGA-a-Simple-/}{\texttt{ https\+://www.\+instructables.\+com/\+Interfacing-\/\+RFID-\/\+RC522-\/\+With-\/\+Arduino-\/\+MEGA-\/a-\/\+Simple-\//}}. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 18 23, 2023 
+\end{DoxyDate}
+This program continuously flashes an external LED (Task 1), and waits for an RFID card to be scanned, then sends the scanned card\textquotesingle{}s Spotify code to the Serial to play the song/album on Spotify. Also recieves information about the current song playing on Spotify and displays it on an LCD screen. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{free-rtos-spotify-player_8ino_a7e93a8dd0eec6e398842100fff731a1d}\label{free-rtos-spotify-player_8ino_a7e93a8dd0eec6e398842100fff731a1d} 
+\index{free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}!detectCard@{detectCard}}
+\index{detectCard@{detectCard}!free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}}
+\doxysubsubsection{\texorpdfstring{detectCard()}{detectCard()}}
+{\footnotesize\ttfamily void detect\+Card (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters }\end{DoxyParamCaption})}
+
+
+
+Waits for the RFID scanner to scan a card. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+Constantly checks if a card has been detected. If a card is detected, gets the serial number value and checks that the card is different from the previous scan If the card is different, then find the associated Spotify code and send the code to Serial. If the card is not recognized then nothing happens Acknowledgments\+: Inspired by \href{https://www.instructables.com/Interfacing-RFID-RC522-With-Arduino-MEGA-a-Simple-/}{\texttt{ https\+://www.\+instructables.\+com/\+Interfacing-\/\+RFID-\/\+RC522-\/\+With-\/\+Arduino-\/\+MEGA-\/a-\/\+Simple-\//}} \Hypertarget{free-rtos-spotify-player_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{free-rtos-spotify-player_8ino_a4fc01d736fe50cf5b977f755b675f11d} 
+\index{free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}!setup@{setup}}
+\index{setup@{setup}!free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setup the Serial Communication, External LED, Tasks, LCD, and RFID scanner. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+Setup the Serial Communication to 9600, External LED, Tasks, LCD, and RFID scanner \begin{DoxySeeAlso}{See also}
+\doxylink{free-rtos-spotify-player_8ino_a90528caab2c5dc2c32f19333b016ae00}{setup\+LCD()}, \doxylink{free-rtos-spotify-player_8ino_a59284ce8f9a9bf013dbfed2be0a06b63}{setup\+RFID()} 
+\end{DoxySeeAlso}
+\Hypertarget{free-rtos-spotify-player_8ino_a90528caab2c5dc2c32f19333b016ae00}\label{free-rtos-spotify-player_8ino_a90528caab2c5dc2c32f19333b016ae00} 
+\index{free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}!setupLCD@{setupLCD}}
+\index{setupLCD@{setupLCD}!free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}}
+\doxysubsubsection{\texorpdfstring{setupLCD()}{setupLCD()}}
+{\footnotesize\ttfamily void setup\+LCD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setup the LCD screen. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+Sets up the LCD screen\textquotesingle{}s pins, and sets the initial text on the screen Acknowledgments\+: Inspired by \href{https://www.instructables.com/Arduino-Interfacing-With-LCD-Without-Potentiometer/}{\texttt{ https\+://www.\+instructables.\+com/\+Arduino-\/\+Interfacing-\/\+With-\/\+LCD-\/\+Without-\/\+Potentiometer/}} \begin{DoxySeeAlso}{See also}
+\doxylink{free-rtos-spotify-player_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup()} 
+\end{DoxySeeAlso}
+\Hypertarget{free-rtos-spotify-player_8ino_a59284ce8f9a9bf013dbfed2be0a06b63}\label{free-rtos-spotify-player_8ino_a59284ce8f9a9bf013dbfed2be0a06b63} 
+\index{free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}!setupRFID@{setupRFID}}
+\index{setupRFID@{setupRFID}!free-\/rtos-\/spotify-\/player.ino@{free-\/rtos-\/spotify-\/player.ino}}
+\doxysubsubsection{\texorpdfstring{setupRFID()}{setupRFID()}}
+{\footnotesize\ttfamily void setup\+RFID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setup the RFID scanner. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+Sets up the SPI interface and RFID reader Acknowledgments\+: Inspired by \href{https://www.instructables.com/Interfacing-RFID-RC522-With-Arduino-MEGA-a-Simple-/}{\texttt{ https\+://www.\+instructables.\+com/\+Interfacing-\/\+RFID-\/\+RC522-\/\+With-\/\+Arduino-\/\+MEGA-\/a-\/\+Simple-\//}} \begin{DoxySeeAlso}{See also}
+\doxylink{free-rtos-spotify-player_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup()} 
+\end{DoxySeeAlso}

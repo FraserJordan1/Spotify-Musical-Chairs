@@ -1,0 +1,129 @@
+\doxysection{free-\/rtos-\/spotify-\/player/rfid\+\_\+and\+\_\+lcd\+\_\+with\+\_\+spotify.py File Reference}
+\hypertarget{rfid__and__lcd__with__spotify_8py}{}\label{rfid__and__lcd__with__spotify_8py}\index{free-\/rtos-\/spotify-\/player/rfid\_and\_lcd\_with\_spotify.py@{free-\/rtos-\/spotify-\/player/rfid\_and\_lcd\_with\_spotify.py}}
+
+
+!  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a6bd9ffa2b03210fc9debc869d0e08554}\label{rfid__and__lcd__with__spotify_8py_a6bd9ffa2b03210fc9debc869d0e08554} 
+None {\bfseries start\+\_\+album} (str album\+\_\+title)
+\item 
+None \mbox{\hyperlink{rfid__and__lcd__with__spotify_8py_a6db2358dba5ac263ee425a1d6656c908}{start\+\_\+song}} (str song\+\_\+title)
+\begin{DoxyCompactList}\small\item\em Plays the given song/track code on Spotify. \end{DoxyCompactList}\item 
+None \mbox{\hyperlink{rfid__and__lcd__with__spotify_8py_a0df884b48ade2ea83e8f53985e7e4c22}{read\+\_\+value}} ()
+\begin{DoxyCompactList}\small\item\em Plays the given song/track code on Spotify. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rfid__and__lcd__with__spotify_8py_a9367fbfffd9b6b88a4fadab609a346f1}{get\+\_\+currently\+\_\+playing\+\_\+song}} (prev\+\_\+song\+\_\+info, prev\+\_\+song\+\_\+str)
+\begin{DoxyCompactList}\small\item\em Sends the new song information to serial, if the song playing on Spotify has changed. \end{DoxyCompactList}\item 
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a51af30a60f9f02777c6396b8247e356f}\label{rfid__and__lcd__with__spotify_8py_a51af30a60f9f02777c6396b8247e356f} 
+{\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{rfid__and__lcd__with__spotify_8py_ab1b8b390ca224f5e4baaeb24eae0bbb5}\label{rfid__and__lcd__with__spotify_8py_ab1b8b390ca224f5e4baaeb24eae0bbb5} 
+{\bfseries CLIENT\+\_\+\+ID} = os.\+getenv(\"{}client\+\_\+id\"{})
+\item 
+\Hypertarget{rfid__and__lcd__with__spotify_8py_abc97b2c116f1784260c74207fd83b76d}\label{rfid__and__lcd__with__spotify_8py_abc97b2c116f1784260c74207fd83b76d} 
+{\bfseries CLIENT\+\_\+\+SECRET} = os.\+getenv(\"{}client\+\_\+secret\"{})
+\item 
+\mbox{\hyperlink{rfid__and__lcd__with__spotify_8py_a4a254884ceb04aa9adaa4e26bccc1164}{sp}}
+\item 
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a7555938dcc3ebeed840a767ed8148926}\label{rfid__and__lcd__with__spotify_8py_a7555938dcc3ebeed840a767ed8148926} 
+{\bfseries Serial\+Obj} = serial.\+Serial(\textquotesingle{}COM4\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+! 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 18, 2023
+\end{DoxyDate}
+ECE Lab 4, Part C. Making API requests to Spotify @detail University of Washington ECE 474 Acknowledgments\+: Serial communication was inspired by the following Git\+Hub by Rahul.\+S Git\+Hub\+: \href{https://github.com/xanthium-enterprises/CrossPlatform-Serial-Port-Programming-using-Python-and-PySerial/tree/master}{\texttt{ https\+://github.\+com/xanthium-\/enterprises/\+Cross\+Platform-\/\+Serial-\/\+Port-\/\+Programming-\/using-\/\+Python-\/and-\/\+Py\+Serial/tree/master}}
+
+This program plays the song/album on Spotify sent by Serial Communication, and also sends the current song being played on Spotify to the Serial 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a9367fbfffd9b6b88a4fadab609a346f1}\label{rfid__and__lcd__with__spotify_8py_a9367fbfffd9b6b88a4fadab609a346f1} 
+\index{rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}!get\_currently\_playing\_song@{get\_currently\_playing\_song}}
+\index{get\_currently\_playing\_song@{get\_currently\_playing\_song}!rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}}
+\doxysubsubsection{\texorpdfstring{get\_currently\_playing\_song()}{get\_currently\_playing\_song()}}
+{\footnotesize\ttfamily get\+\_\+currently\+\_\+playing\+\_\+song (\begin{DoxyParamCaption}\item[{}]{prev\+\_\+song\+\_\+info,  }\item[{}]{prev\+\_\+song\+\_\+str }\end{DoxyParamCaption})}
+
+
+
+Sends the new song information to serial, if the song playing on Spotify has changed. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em prev\+\_\+song\+\_\+info} & Dictionary with the info about the most previous song that was sent to Serial \\
+\hline
+{\em prev\+\_\+song\+\_\+str} & The most recent song string that was sent to Serial\\
+\hline
+\end{DoxyParams}
+If the current song playing on Spotify has changed since the most recent song info sent to Serial, then we get the information about the current song playing, and send the new song\textquotesingle{}s title and artist to Serial. Acknowledgements\+: Serial communication inspired by the following github repo\+: \href{https://github.com/xanthium-enterprises/CrossPlatform-Serial-Port-Programming-using-Python-and-PySerial/blob/master/_1_Python3_Codes/_2_PySerial_Transmit_2.py}{\texttt{ https\+://github.\+com/xanthium-\/enterprises/\+Cross\+Platform-\/\+Serial-\/\+Port-\/\+Programming-\/using-\/\+Python-\/and-\/\+Py\+Serial/blob/master/\+\_\+1\+\_\+\+Python3\+\_\+\+Codes/\+\_\+2\+\_\+\+Py\+Serial\+\_\+\+Transmit\+\_\+2.\+py}} \begin{DoxySeeAlso}{See also}
+main() 
+\end{DoxySeeAlso}
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a0df884b48ade2ea83e8f53985e7e4c22}\label{rfid__and__lcd__with__spotify_8py_a0df884b48ade2ea83e8f53985e7e4c22} 
+\index{rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}!read\_value@{read\_value}}
+\index{read\_value@{read\_value}!rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}}
+\doxysubsubsection{\texorpdfstring{read\_value()}{read\_value()}}
+{\footnotesize\ttfamily  None read\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Plays the given song/track code on Spotify. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+Reads the value from Serial, and plays the given album/song. Acknowledgements\+: Serial communication inspired by the following github repo\+: \href{https://github.com/xanthium-enterprises/CrossPlatform-Serial-Port-Programming-using-Python-and-PySerial/blob/master/_1_Python3_Codes/_5_PySerial-Receive_String.py}{\texttt{ https\+://github.\+com/xanthium-\/enterprises/\+Cross\+Platform-\/\+Serial-\/\+Port-\/\+Programming-\/using-\/\+Python-\/and-\/\+Py\+Serial/blob/master/\+\_\+1\+\_\+\+Python3\+\_\+\+Codes/\+\_\+5\+\_\+\+Py\+Serial-\/\+Receive\+\_\+\+String.\+py}} \begin{DoxySeeAlso}{See also}
+main(), start\+\_\+album(), start\+\_\+song() 
+\end{DoxySeeAlso}
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a6db2358dba5ac263ee425a1d6656c908}\label{rfid__and__lcd__with__spotify_8py_a6db2358dba5ac263ee425a1d6656c908} 
+\index{rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}!start\_song@{start\_song}}
+\index{start\_song@{start\_song}!rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}}
+\doxysubsubsection{\texorpdfstring{start\_song()}{start\_song()}}
+{\footnotesize\ttfamily  None start\+\_\+song (\begin{DoxyParamCaption}\item[{str}]{song\+\_\+title }\end{DoxyParamCaption})}
+
+
+
+Plays the given song/track code on Spotify. 
+
+\begin{DoxyAuthor}{Author}
+Jordan Fraser, Nina Okubo 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em song\+\_\+title} & The Spotify song code as a string to play on Spotify\\
+\hline
+\end{DoxyParams}
+Plays the given song on Spotify Acknowledgements\+: The Spotipy Library Documentation \begin{DoxySeeAlso}{See also}
+read\+\_\+value() 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{rfid__and__lcd__with__spotify_8py_a4a254884ceb04aa9adaa4e26bccc1164}\label{rfid__and__lcd__with__spotify_8py_a4a254884ceb04aa9adaa4e26bccc1164} 
+\index{rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}!sp@{sp}}
+\index{sp@{sp}!rfid\_and\_lcd\_with\_spotify.py@{rfid\_and\_lcd\_with\_spotify.py}}
+\doxysubsubsection{\texorpdfstring{sp}{sp}}
+{\footnotesize\ttfamily sp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ spotipy.Spotify(auth\_manager=SpotifyOAuth(client\_id=CLIENT\_ID,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ client\_secret=CLIENT\_SECRET,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ redirect\_uri=\textcolor{stringliteral}{"{}http://localhost:3000"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{stringliteral}{"{}user-\/read-\/playback-\/state,user-\/modify-\/playback-\/state"{}}))}
+
+\end{DoxyCode}
